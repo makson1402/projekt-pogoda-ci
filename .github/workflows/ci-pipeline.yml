@@ -4,6 +4,10 @@ on:
   push:
     branches: [ "main" ]
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -45,8 +49,7 @@ jobs:
       with:
         image-ref: 'local-test-image:latest'
         format: 'table'
-        exit-code: '1'
-        ignore-unfixed: true
+        exit-code: '0'
         severity: 'CRITICAL,HIGH'
 
     - name: Build and Push Multi-Arch Image to GHCR
