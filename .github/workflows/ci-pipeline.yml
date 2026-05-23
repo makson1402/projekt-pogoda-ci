@@ -48,7 +48,7 @@ jobs:
         exit-code: '0'
         severity: 'CRITICAL,HIGH'
 
-    - name: Build and Push Multi-Arch Image to GHCR (with caching)
+    - name: Build and Push Multi-Arch Image to Docker Hub (with caching)
       uses: docker/build-push-action@v6
       with:
         context: .
@@ -56,6 +56,6 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          ghcr.io/makson1402/projekt-pogoda-ci:latest
+          makson1402/projekt-pogoda-ci:latest
         cache-from: type=registry,ref=makson1402/projekt-pogoda-cache:max
         cache-to: type=registry,ref=makson1402/projekt-pogoda-cache:max,mode=max
