@@ -37,6 +37,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: false
+        load: true
         tags: local-test-image:latest
 
     - name: Run Trivy vulnerability scanner
