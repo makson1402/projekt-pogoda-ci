@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pogoda</title>
+</head>
+<body>
+    <h1>Aplikacja Pogodowa</h1>
+    
+    <form method="POST">
+        <label for="city">Wybierz miasto:</label>
+        <select name="city" id="city">
+            {% for country, cities in locations.items() %}
+                <optgroup label="{{ country }}">
+                    {% for city in cities %}
+                        <option value="{{ city }}">{{ city }}</option>
+                    {% endfor %}
+                </optgroup>
+            {% endfor %}
+        </select>
+        <button type="submit">Sprawdź</button>
+    </form>
+
+    <hr>
+
+    {% if weather %}
+        <h2>Wynik dla: {{ city }}</h2>
+        <p>Temperatura: <b>{{ weather.temperature }}°C</b></p>
+        <p>Wiatr: {{ weather.windspeed }} km/h</p>
+    {% endif %}
+</body>
+</html>
