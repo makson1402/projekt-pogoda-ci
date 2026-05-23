@@ -40,12 +40,11 @@ jobs:
         tags: local-test-image:latest
 
     - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
+      uses: aquasecurity/trivy-action@0.28.0
       with:
         image-ref: 'local-test-image:latest'
         format: 'table'
-        exit-code: '0' 
-        ignore-unfixed: true
+        exit-code: '0'
         severity: 'CRITICAL,HIGH'
 
     - name: Build and Push Multi-Arch Image to GHCR (with caching)
