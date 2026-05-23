@@ -31,7 +31,7 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build Docker Image (Local temporary build for Trivy)
+    - name: Build Docker Image for Testing
       uses: docker/build-push-action@v6
       with:
         context: .
@@ -45,10 +45,11 @@ jobs:
       with:
         image-ref: 'local-test-image:latest'
         format: 'table'
-        exit-code: '0'
+        exit-code: '1'
+        ignore-unfixed: true
         severity: 'CRITICAL,HIGH'
 
-    - name: Build and Push Multi-Arch Image to Docker Hub (with caching)
+    - name: Build and Push Multi-Arch Image to GHCR
       uses: docker/build-push-action@v6
       with:
         context: .
@@ -56,6 +57,6 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         tags: |
-          makson1402/projekt-pogoda-ci:latest
+          ghcr.io/${{ github.repository_owner }}/projekt-pogoda-ci:latest
         cache-from: type=registry,ref=makson1402/projekt-pogoda-cache:max
         cache-to: type=registry,ref=makson1402/projekt-pogoda-cache:max,mode=max
